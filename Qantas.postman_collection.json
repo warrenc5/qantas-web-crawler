@@ -1,0 +1,38 @@
+{
+	"variables": [],
+	"info": {
+		"name": "Qantas",
+		"_postman_id": "b4e9f479-b691-607f-87be-726b0c22db32",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Qantas Test",
+			"request": {
+				"url": "localhost:8080/qantas-crawler-1.0-SNAPSHOT/rest/crawl/",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "url",
+							"value": "file:/home/code/qantas-crawler/target/test-classes/somewhere.com/index.html",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
