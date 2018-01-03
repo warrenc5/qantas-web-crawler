@@ -10,7 +10,7 @@
 		{
 			"name": "Qantas Test",
 			"request": {
-				"url": "localhost:8080/qantas-crawler-1.0-SNAPSHOT/rest/crawl/",
+				"url": "localhost:8080/qantas-web-crawler/rest/crawl/",
 				"method": "POST",
 				"header": [
 					{
@@ -26,10 +26,66 @@
 							"key": "url",
 							"value": "file:/home/code/qantas-crawler/target/test-classes/somewhere.com/index.html",
 							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "url",
+							"value": "http://www.qantas.com",
+							"description": "",
 							"type": "text"
 						}
 					]
 				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Hello Test",
+			"request": {
+				"url": "localhost:8080/qantas-web-crawler/rest/crawl/",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Settings",
+			"request": {
+				"url": {
+					"raw": "localhost:8080/qantas-web-crawler/rest/crawl/settings?max-depth=21&max-time-seconds=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"qantas-web-crawler",
+						"rest",
+						"crawl",
+						"settings"
+					],
+					"query": [
+						{
+							"key": "max-depth",
+							"value": "21",
+							"equals": true,
+							"description": ""
+						},
+						{
+							"key": "max-time-seconds",
+							"value": "10",
+							"equals": true,
+							"description": ""
+						}
+					],
+					"variable": []
+				},
+				"method": "GET",
+				"header": [],
+				"body": {},
 				"description": ""
 			},
 			"response": []

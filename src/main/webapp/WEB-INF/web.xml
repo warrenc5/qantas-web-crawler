@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This web.xml file is not required when using Servlet 3.0 container,
+see implementation details http://jersey.java.net/nonav/documentation/latest/jax-rs.html -->
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <context-param>
+        <param-name>MAX_DEPTH</param-name>
+        <param-value>5</param-value>
+    </context-param>
+    <context-param>
+        <param-name>MAX_TIME_SECONDS</param-name>
+        <param-value>20</param-value>
+    </context-param>
+    <context-param>
+        <param-name>MAX_REDIRECT</param-name>
+        <param-value>3</param-value>
+    </context-param>
+    <context-param>
+        <param-name>ALLOW_OFFSITE</param-name>
+        <param-value>false</param-value>
+    </context-param>
+</web-app>

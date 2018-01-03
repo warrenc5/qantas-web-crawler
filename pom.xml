@@ -12,6 +12,7 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <version.wildfly.swarm>2017.12.1</version.wildfly.swarm>
     </properties>
     
     <dependencies>
@@ -54,6 +55,7 @@
     </dependencies>
 
     <build>
+        <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -100,7 +102,58 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.wildfly.swarm</groupId>
+                <artifactId>wildfly-swarm-plugin</artifactId>
+                <version>${version.wildfly.swarm}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>1.0.0</version>
+                <executions>
+                    <execution>
+                        <id>build-image</id>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions> 
+                <configuration>
+                    <imageName>qantas-web-crawler</imageName>
+                    <baseImage>java:8</baseImage>
+                    <entryPoint>java -Djava.net.preferIPv4Stack=true -jar /${project.artifactId}-${project.version}-swarm.jar</entryPoint>
+                    <exposes>
+                        <expose>8080</expose>
+                    </exposes>
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>target</directory>
+                            <include>${project.artifactId}-${project.version}-swarm.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.wildfly.swarm</groupId>
+                <artifactId>bom</artifactId>
+                <version>${version.wildfly.swarm}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>

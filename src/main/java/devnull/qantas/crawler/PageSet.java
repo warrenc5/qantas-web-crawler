@@ -23,13 +23,20 @@ public class PageSet {
     private Set<PageSet> nodes = new HashSet<>();
     private Set<URI> refs = new HashSet<>();
     private String error = "";
+    private Integer depth = 0;
+    private boolean redirect = false;
 
-    PageSet(URI location) {
+    public PageSet(URI location) {
         this.location = location;
     }
 
-    PageSet(String location) throws URISyntaxException {
+    public PageSet(String location) throws URISyntaxException {
         this.location = new URI(location);
+    }
+
+    public PageSet(int depth, URI location) {
+        this.depth = depth;
+        this.location = location;
     }
 
     public URI getLocation() {
@@ -64,6 +71,14 @@ public class PageSet {
         this.error = error;
     }
 
+    public boolean isRedirect() {
+        return redirect;
+    }
+
+    public void setRedirect(boolean redirect) {
+        this.redirect = redirect;
+    }
+
     /**
      * Step 6
      *
@@ -89,6 +104,10 @@ public class PageSet {
      */
     public void addRef(URI uri) throws URISyntaxException {
         this.getRefs().add(this.location.resolve(uri));
+    }
+
+    public int getDepth() {
+        return depth;
     }
 
 }

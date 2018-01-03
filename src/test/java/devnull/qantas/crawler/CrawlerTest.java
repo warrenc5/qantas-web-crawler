@@ -4,6 +4,7 @@
 package devnull.qantas.crawler;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -19,6 +20,8 @@ import org.junit.Ignore;
  */
 public class CrawlerTest {
 
+    private Crawler crawler;
+
     public CrawlerTest() {
     }
 
@@ -32,6 +35,7 @@ public class CrawlerTest {
 
     @Before
     public void setUp() {
+        this.crawler = new Crawler();
     }
 
     @After
@@ -55,6 +59,8 @@ public class CrawlerTest {
         PageSet result = new Crawler().crawl(url.toURI());
 
         assertNotNull(result);
+        assertNotNull(result.getError());
+        System.out.println(result.toString());
         assertNotNull(result.getTitle());
         assertNotNull(result.getLocation());
         assertFalse(result.getRefs().isEmpty());
@@ -62,20 +68,21 @@ public class CrawlerTest {
         System.out.println(result.toString());
     }
 
+    /**
+     * TODO: move this to an IT run after install.
+     * @throws Exception 
+     */
     @Test
     @Ignore
-    /** 
-     * Step 20 - try it on the web - ouch - that's hard!
-     * 
-     * To unlock the full version send 10 bit coin to 1BA3vNRDNG2NPeafMdEYYqixSDWsa9MmuG
-     */
     public void testLiveCrawl() throws Exception {
-        URI uri = new URI("https://www.qantasmoney.com");
+        //URI uri = new URI("https://www.qantasmoney.com");
+        URI uri = new URI("https://www.qantasmoney.com/credit-cards/premier-platinum/fees-and-rates");
         assertNotNull(uri);
 
-        PageSet result = new Crawler().crawl(uri);
-
+        PageSet result = crawler.crawl(uri);
         assertNotNull(result);
+        assertNotNull(result.getError());
+        System.out.println(result.toString());
         assertNotNull(result.getTitle());
         assertNotNull(result.getLocation());
         assertFalse(result.getRefs().isEmpty());
@@ -88,7 +95,6 @@ public class CrawlerTest {
      * @throws Exception
      */
     @Test
-    @Ignore
     public void testLine() throws Exception {
         PageSet result = new PageSet("www.anywhere.in"); //Step 9 overload constructor because I'm lazy.
 
@@ -96,7 +102,7 @@ public class CrawlerTest {
         assertNotNull(result.getTitle());
         assertEquals("hey, the best page in the web", result.getTitle().toLowerCase());
 
-        new Crawler().matchLine("<a href=\"/link.to.nowhere\"/>", result); //Step 20. get better at resolving relative paths.
+        new Crawler().matchLine("<a href=\"link.to.nowhere\"/>", result); //Step 20. get better at resolving relative paths.
         assertFalse(result.getRefs().isEmpty());
         assertEquals("link.to.nowhere", result.getRefs().iterator().next().toString());
     }
@@ -107,7 +113,6 @@ public class CrawlerTest {
      * @throws Exception
      */
     @Test
-    @Ignore
     public void testURI() throws Exception {
         PageSet result = new PageSet("http://www.anywhere.in/"); //Step 9 overload constructor because I'm lazy.
 
@@ -116,4 +121,16 @@ public class CrawlerTest {
         assertEquals("http://www.anywhere.in/here", result.getRefs().iterator().next().toString());
     }
 
+    @Test
+    public void testAnchor() throws URISyntaxException {
+
+        URI uri1 = new URI("https://www.qantasmoney.com/some");
+        URI uri2 = new URI("https://www.qantasmoney.com/some#blip");
+        URI uri3 = new URI("https://www.qantasmoney.com/some?blah");
+        URI uri4 = new URI("https://www.qantasmoney.com/some2");
+
+        assertTrue(new Crawler().isAnchor(uri1, uri2));
+        assertTrue(new Crawler().isAnchor(uri1, uri3));
+        assertFalse(new Crawler().isAnchor(uri1, uri4));
+    }
 }
