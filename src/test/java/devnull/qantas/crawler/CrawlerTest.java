@@ -1,18 +1,20 @@
-/**
- * Copyright ITCL PTY LTD 2018
- */
 package devnull.qantas.crawler;
+
+/**
+ * Copyright ITCL PTY LTD 2020
+ */
+
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
 import org.junit.Ignore;
+import org.junit.Test;
 
 /**
  *
