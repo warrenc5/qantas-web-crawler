@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "Qantas Test",
+			"name": "Qantas Web Crawler Test",
 			"request": {
 				"url": "localhost:8080/qantas-web-crawler/rest/crawl/",
 				"method": "POST",
