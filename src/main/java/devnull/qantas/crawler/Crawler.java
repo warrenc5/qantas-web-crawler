@@ -1,5 +1,5 @@
 /**
- * Copyright ITCL PTY LTD 2018 - All rights reserved
+ * Copyright ITCL PTY LTD 2020 - All rights reserved
  */
 package devnull.qantas.crawler;
 
